@@ -4,7 +4,9 @@
 >
 > ¿Cuánto tarda un mensaje? Elige origen y destino en el sistema solar y mira la señal cruzar una regla a escala en el tiempo real que tarda la luz.
 
-![light-delay preview](docs/preview.png)
+**[Live demo · Demo en vivo →](https://diegocedenno.github.io/light-delay/)**
+
+[![light-delay preview](docs/preview.png)](https://diegocedenno.github.io/light-delay/)
 
 **[English](#english)** · **[Español](#español)**
 
