@@ -98,6 +98,12 @@
     return out.join(" ");
   }
 
+  // Versión corta para rangos y totales largos: desde una hora, sin segundos.
+  function formatSpan(seconds) {
+    if (seconds < 3600) return formatDuration(seconds);
+    return formatDuration(Math.floor(seconds / 60) * 60).replace(/ 0 s$/, "");
+  }
+
   // "M km" = millones de km.
   function formatKm(km) {
     if (km < 1e7) return formatNumber(km, 0) + NBSP + "km";
@@ -272,17 +278,16 @@
 
   App.model = {
     C: C,
-    AU: AU,
     bodies: BODIES,
     isBody: isBody,
     nameOf: nameOf,
     route: route,
-    voyagerSun: voyagerSun,
     distanceTicks: distanceTicks,
     timeTicks: timeTicks,
     format: {
       number: formatNumber,
       duration: formatDuration,
+      span: formatSpan,
       km: formatKm,
       au: formatAU,
     },
