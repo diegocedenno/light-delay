@@ -21,6 +21,7 @@
 - Counters show signal time, distance covered, percentage of the trip and the real time left. When the pulse lands, the destination acknowledges the message; optionally the echo comes back for the round trip.
 - ×10, ×100 and ×1000 speed things up, even mid-flight. If a trip would take long, the page says how long and offers the acceleration that fixes it.
 - The last route, acceleration and echo setting survive a reload (`localStorage`).
+- A switch in the header flips between dark and light mode: the same sky redrawn as a star chart on paper, with the bodies, the probe and the signal inked to read on it. The choice is remembered and shared across the Plutón series.
 
 ### What makes it technically interesting
 
@@ -67,6 +68,7 @@ It also works as-is on GitHub Pages.
 - Los contadores muestran el tiempo de señal, la distancia recorrida, el porcentaje del trayecto y el tiempo real que falta. Cuando el pulso llega, el destino acusa recibo del mensaje; si quieres, el eco vuelve para completar la ida y vuelta.
 - ×10, ×100 y ×1000 aceleran el viaje, también en pleno vuelo. Si un envío va a tardar mucho, la página dice cuánto y ofrece la aceleración que lo arregla.
 - La última ruta, la aceleración y la opción de eco sobreviven a una recarga (`localStorage`).
+- Un interruptor en la cabecera alterna entre modo oscuro y claro: el mismo cielo redibujado como carta estelar sobre papel, con los cuerpos, la sonda y la señal entintados para leerse en él. La elección se recuerda y se comparte entre los proyectos de la serie Plutón.
 
 ### Qué lo hace interesante técnicamente
 
