@@ -1,0 +1,513 @@
+/* light-delay — estilos propios. Los tokens y la base viven en assets/tokens.css */
+
+.layout {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--s-4);
+  min-width: 0;
+}
+
+/* ---------- escena ---------- */
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  min-width: 0;
+}
+
+.stage-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--s-1) var(--s-4);
+}
+
+.scene {
+  width: 100%;
+  height: 208px;
+  overflow: visible;
+}
+
+.guide {
+  stroke: var(--border);
+  stroke-width: 1;
+  stroke-dasharray: 2 4;
+}
+
+.ruler-line {
+  stroke: var(--border-strong);
+  stroke-width: 1;
+}
+
+.ruler-line--time {
+  stroke: var(--cold);
+  opacity: 0.6;
+}
+
+.tick-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  fill: var(--text-2);
+  text-anchor: middle;
+}
+
+.tick-label--time {
+  fill: var(--cold);
+}
+
+/* Trayectoria punteada: cada punto se enciende cuando la señal lo ha pasado. */
+.dot {
+  fill: var(--border-strong);
+  opacity: 0.75;
+  transition: opacity 260ms var(--ease-out);
+}
+
+.dot.is-lit {
+  fill: var(--cold);
+  opacity: 1;
+}
+
+.dot.is-echo {
+  fill: var(--accent);
+  opacity: 1;
+}
+
+.pulse {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms var(--ease-out);
+}
+
+.pulse.is-on {
+  opacity: 1;
+}
+
+.pulse-head {
+  fill: var(--text);
+}
+
+.pulse-glow {
+  fill: var(--cold);
+  opacity: 0.18;
+}
+
+.pulse-arc {
+  fill: none;
+  stroke: var(--cold);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.pulse-cursor {
+  stroke: var(--cold);
+  stroke-width: 1;
+  stroke-dasharray: 2 3;
+  opacity: 0.5;
+}
+
+.pulse.is-echo .pulse-glow {
+  fill: var(--accent);
+}
+
+.pulse.is-echo .pulse-arc,
+.pulse.is-echo .pulse-cursor {
+  stroke: var(--accent);
+}
+
+.ring {
+  fill: none;
+  stroke: var(--cold);
+  stroke-width: 1.5;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  pointer-events: none;
+}
+
+.ring.is-echo {
+  stroke: var(--accent);
+}
+
+.body {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.body-name {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  fill: var(--text);
+  text-anchor: middle;
+}
+
+.body-role {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  fill: var(--text-2);
+  text-anchor: middle;
+}
+
+.body-role.is-ok {
+  fill: var(--accent);
+}
+
+.receipt {
+  min-height: 1.5em;
+}
+
+.receipt.is-ok::before {
+  content: "✓ ";
+}
+
+/* ---------- telemetría ---------- */
+
+.telemetry {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  padding: var(--s-3) var(--s-4);
+  border-left: 1px solid var(--border);
+}
+
+.cell:first-child {
+  border-left: 0;
+}
+
+.cell dd {
+  margin: 0;
+}
+
+.cell-value {
+  font-size: 1.375rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text);
+}
+
+.telemetry[data-size="s"] .cell-value {
+  font-size: 1.125rem;
+  line-height: 1.59;
+}
+
+.cell-sub {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+}
+
+.stage[data-phase="done"] ~ .telemetry .cell-value {
+  color: var(--accent);
+}
+
+/* ---------- controles ---------- */
+
+.controls {
+  display: grid;
+  grid-template-columns: minmax(300px, 1.25fr) minmax(160px, 1fr) auto auto;
+  grid-template-areas:
+    "route message accel send"
+    "hint hint echo echo";
+  align-items: end;
+  gap: var(--s-3) var(--s-4);
+  padding: var(--s-4);
+}
+
+.route {
+  grid-area: route;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44px minmax(0, 1fr);
+  align-items: end;
+  gap: var(--s-2);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.message {
+  grid-area: message;
+}
+
+.accel {
+  grid-area: accel;
+}
+
+.select,
+.input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 var(--s-3);
+  background-color: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  color: var(--text);
+  transition: border-color var(--t-fast) var(--ease-out);
+}
+
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 2.25rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5 6 8l3.5-3.5' fill='none' stroke='%238b949e' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 12px;
+  cursor: pointer;
+}
+
+.select:hover,
+.input:hover {
+  border-color: var(--border-strong);
+}
+
+.input::placeholder {
+  color: var(--text-2);
+}
+
+.swap {
+  width: 44px;
+  padding: 0;
+  color: var(--text-2);
+}
+
+.swap:hover {
+  color: var(--text);
+}
+
+.swap svg {
+  transition: transform var(--t-med) var(--ease-spring);
+}
+
+.swap:active svg {
+  transform: rotate(180deg);
+}
+
+/* Grupo de radios nativos con aspecto de selector segmentado. */
+.seg {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(52px, 1fr));
+  background: var(--surface-2);
+  border-radius: var(--radius);
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+
+.seg label {
+  display: grid;
+  place-items: center;
+  min-height: 44px;
+  padding: 0 var(--s-2);
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    color var(--t-fast) var(--ease-out),
+    background-color var(--t-fast) var(--ease-out);
+}
+
+.seg label:hover {
+  color: var(--text);
+}
+
+.seg input:checked + label {
+  background: var(--accent-soft);
+  color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.seg input:focus-visible + label {
+  outline: 2px solid var(--cold);
+  outline-offset: 2px;
+}
+
+.send {
+  grid-area: send;
+  min-width: 164px;
+}
+
+.hint {
+  grid-area: hint;
+  align-self: center;
+  line-height: 1.6;
+}
+
+.boost {
+  position: relative;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-bottom: 1px dashed var(--accent);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+
+.boost:hover {
+  color: var(--text);
+  border-bottom-color: var(--text);
+}
+
+/* Toque cómodo sin agrandar el enlace a la vista */
+.boost::after {
+  content: "";
+  position: absolute;
+  inset: -14px -8px;
+}
+
+.check {
+  grid-area: echo;
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 44px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.04em;
+  color: var(--text-2);
+  cursor: pointer;
+}
+
+.check input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+/* ---------- notas ---------- */
+
+.notes {
+  display: grid;
+  gap: var(--s-1);
+  font-size: var(--fs-xs);
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+/* ---------- pantallas estrechas ---------- */
+
+@media (max-width: 940px) {
+  .controls {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "route route"
+      "message message"
+      "accel send"
+      "hint hint"
+      "echo echo";
+  }
+
+  .send {
+    min-width: 0;
+  }
+
+  .check {
+    justify-self: start;
+  }
+
+  .telemetry {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cell:nth-child(odd) {
+    border-left: 0;
+  }
+
+  .cell:nth-child(n + 3) {
+    border-top: 1px solid var(--border);
+  }
+}
+
+@media (max-width: 700px) {
+  .page {
+    gap: var(--s-3);
+    padding-top: var(--s-4);
+  }
+
+  .layout {
+    justify-content: flex-start;
+    gap: var(--s-3);
+  }
+
+  .scene {
+    height: 184px;
+  }
+
+  .cell {
+    padding: var(--s-2) var(--s-3);
+  }
+
+  .cell-value {
+    font-size: var(--fs-md);
+  }
+
+  .telemetry[data-size="m"] .cell-value {
+    font-size: var(--fs-sm);
+    line-height: 1.5;
+  }
+
+  .telemetry[data-size="s"] .cell-value {
+    font-size: var(--fs-xs);
+    line-height: 1.625;
+  }
+
+  .controls {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "route"
+      "message"
+      "accel"
+      "send"
+      "hint"
+      "echo";
+    gap: var(--s-2);
+    padding: var(--s-3);
+  }
+
+  /* La etiqueta de la aceleración pasa a la misma línea para que el botón
+     de enviar entre en la primera pantalla. */
+  .accel {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-3);
+  }
+
+  .seg {
+    flex: 1;
+    max-width: 236px;
+    grid-template-columns: repeat(4, minmax(44px, 1fr));
+  }
+
+  .seg label {
+    padding: 0;
+  }
+}
