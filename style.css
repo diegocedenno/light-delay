@@ -9,6 +9,16 @@
   min-width: 0;
 }
 
+/* ---------- marca ---------- */
+
+.brand-wave {
+  stroke: var(--text);
+}
+
+.brand-wave--far {
+  stroke: var(--text-2);
+}
+
 /* ---------- escena ---------- */
 
 .stage {
@@ -135,6 +145,63 @@
 .body {
   transform-box: fill-box;
   transform-origin: center;
+}
+
+/* Sombra del limbo de los cuerpos: se funde con el fondo en oscuro; sobre papel
+   es una sombra cálida y más leve. */
+.body-shade {
+  stop-color: #0d1117;
+}
+
+:root[data-theme="light"] .body-shade {
+  stop-color: #5b4330;
+  stop-opacity: 0.38;
+}
+
+/* La Luna y el casquete polar de Marte son casi del color del papel: en modo
+   claro los cierra un contorno de tinta (transparente en oscuro). */
+.body-rim {
+  fill: none;
+  stroke: var(--rocket-line);
+  stroke-width: 1;
+}
+
+/* Plutón se dibuja reducido dentro de su símbolo: el trazo compensa esa escala. */
+.body-rim--pluto {
+  stroke-width: 3.06;
+}
+
+/* Voyager 1: la antena blanca se sostiene en claro con un contorno de tinta; los
+   mástiles y los instrumentos siguen a los tokens. */
+.probe-boom {
+  stroke: var(--text-2);
+}
+
+.probe-bus {
+  fill: var(--text-2);
+}
+
+.probe-dish {
+  fill: var(--rocket);
+  stroke: var(--rocket-line);
+  stroke-width: 1;
+  stroke-linejoin: round;
+}
+
+.probe-dish--back {
+  fill: #cfd6dd;
+}
+
+.probe-rtg {
+  fill: var(--accent);
+}
+
+.probe-scan {
+  fill: var(--cold);
+}
+
+.probe-feed {
+  fill: var(--alert);
 }
 
 .body-name {
@@ -277,6 +344,11 @@
   cursor: pointer;
 }
 
+/* La flecha va en una imagen y no puede leer variables: en claro, la tinta de --text-2. */
+:root[data-theme="light"] .select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5 6 8l3.5-3.5' fill='none' stroke='%2357606a' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
 .select:hover,
 .input:hover {
   border-color: var(--border-strong);
@@ -338,6 +410,11 @@
   background: var(--accent-soft);
   color: var(--accent);
   box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+/* Sobre el velo de acento en papel, el texto necesita el acento profundo para llegar a AA. */
+:root[data-theme="light"] .seg input:checked + label {
+  color: var(--accent-hover);
 }
 
 .seg input:focus-visible + label {

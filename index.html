@@ -7,6 +7,7 @@
   <meta name="description" content="Elige origen y destino en el sistema solar y mira la señal viajar a escala, con el tiempo real de la luz.">
   <meta name="theme-color" content="#0d1117">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <script src="assets/theme.js"></script>
   <link rel="stylesheet" href="assets/tokens.css">
   <link rel="stylesheet" href="style.css">
   <script defer src="assets/starfield.js"></script>
@@ -20,13 +21,19 @@
       <a class="brand" href="./" aria-label="light-delay, inicio">
         <svg viewBox="0 0 32 32" aria-hidden="true">
           <circle cx="6.5" cy="16" r="4.5" fill="#58a6ff"/>
-          <path d="M14.1 11.2A9 9 0 0 1 14.1 20.8" fill="none" stroke="#e6edf3" stroke-width="1.6" stroke-linecap="round"/>
-          <path d="M18.2 8.4A14 14 0 0 1 18.2 23.6" fill="none" stroke="#8b949e" stroke-width="1.6" stroke-linecap="round"/>
+          <path class="brand-wave" d="M14.1 11.2A9 9 0 0 1 14.1 20.8" fill="none" stroke-width="1.6" stroke-linecap="round"/>
+          <path class="brand-wave brand-wave--far" d="M18.2 8.4A14 14 0 0 1 18.2 23.6" fill="none" stroke-width="1.6" stroke-linecap="round"/>
           <circle cx="27" cy="16" r="3.2" fill="#c9a27e"/>
         </svg>
         light-delay
       </a>
       <p class="console" id="status" role="status">status: <b>listo para transmitir</b></p>
+      <button type="button" class="theme-toggle" data-theme-toggle role="switch" aria-checked="false" aria-label="Modo claro">
+        <span class="theme-toggle-thumb" aria-hidden="true">
+          <svg class="theme-toggle-moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="currentColor"/></svg>
+          <svg class="theme-toggle-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+      </button>
     </header>
 
     <main class="layout">
@@ -43,7 +50,7 @@
             <radialGradient id="shade" cx="36%" cy="30%" r="80%">
               <stop offset="0" stop-color="#ffffff" stop-opacity="0.16"/>
               <stop offset="0.55" stop-color="#ffffff" stop-opacity="0"/>
-              <stop offset="1" stop-color="#0d1117" stop-opacity="0.5"/>
+              <stop class="body-shade" offset="1" stop-opacity="0.5"/>
             </radialGradient>
             <clipPath id="clip-earth"><circle r="24"/></clipPath>
             <clipPath id="clip-moon"><circle r="14"/></clipPath>
@@ -60,6 +67,7 @@
                 <path d="M-9 -22C-2 -24 6 -23 11 -21M4 -2C8 -1 11 -1 14 -2" fill="none" stroke="#e6edf3" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
                 <circle r="24" fill="url(#shade)"/>
               </g>
+              <circle class="body-rim" r="24"/>
             </symbol>
 
             <symbol id="b-moon" viewBox="-40 -40 80 80">
@@ -71,6 +79,7 @@
                 <circle cx="-6" cy="7.5" r="1.3" fill="#8b949e" opacity="0.5"/>
                 <circle r="14" fill="url(#shade)"/>
               </g>
+              <circle class="body-rim" r="14"/>
             </symbol>
 
             <symbol id="b-mars" viewBox="-40 -40 80 80">
@@ -82,6 +91,7 @@
                 <circle cx="6" cy="11" r="1.5" fill="#8a4a2e" opacity="0.45"/>
                 <circle r="18" fill="url(#shade)"/>
               </g>
+              <circle class="body-rim" r="18"/>
             </symbol>
 
             <symbol id="b-jupiter" viewBox="-40 -40 80 80">
@@ -95,6 +105,7 @@
                 <ellipse cx="13" cy="10.5" rx="6.5" ry="3.8" fill="#ff7a3d" opacity="0.75"/>
                 <circle r="34" fill="url(#shade)"/>
               </g>
+              <circle class="body-rim" r="34"/>
             </symbol>
 
             <!-- Plutón: mismas formas que assets/pluto.svg -->
@@ -110,22 +121,23 @@
                   <circle cx="40" cy="98" r="3" fill="#a67d5c" opacity="0.5"/>
                   <circle cx="60" cy="60" r="52" fill="url(#shade)"/>
                 </g>
+                <circle class="body-rim body-rim--pluto" cx="60" cy="60" r="52"/>
               </g>
             </symbol>
 
             <!-- Voyager 1: antena de alta ganancia, bus, mástil del magnetómetro y RTG -->
             <symbol id="b-voyager" viewBox="-40 -40 80 80">
               <g transform="rotate(-16)">
-                <path d="M-5 6H-34" fill="none" stroke="#8b949e" stroke-width="1.2" stroke-linecap="round"/>
-                <path d="M5 7L21 15" fill="none" stroke="#8b949e" stroke-width="1.6" stroke-linecap="round"/>
-                <rect x="18" y="12" width="11" height="5" rx="1.6" fill="#c9a27e" transform="rotate(26 23.5 14.5)"/>
-                <path d="M5 4L20 -6" fill="none" stroke="#8b949e" stroke-width="1.2" stroke-linecap="round"/>
-                <rect x="17.5" y="-11.5" width="6" height="6" rx="1.2" fill="#58a6ff"/>
-                <rect x="-7" y="2" width="14" height="8" rx="2" fill="#8b949e"/>
-                <path d="M-15 -3C-11 6 11 6 15 -3Z" fill="#cfd6dd"/>
-                <ellipse cx="0" cy="-3" rx="15" ry="5" fill="#f4f6f8"/>
-                <path d="M0 -3V-13" fill="none" stroke="#8b949e" stroke-width="1.2" stroke-linecap="round"/>
-                <circle cx="0" cy="-14" r="1.8" fill="#ff7a3d"/>
+                <path class="probe-boom" d="M-5 6H-34" fill="none" stroke-width="1.2" stroke-linecap="round"/>
+                <path class="probe-boom" d="M5 7L21 15" fill="none" stroke-width="1.6" stroke-linecap="round"/>
+                <rect class="probe-rtg" x="18" y="12" width="11" height="5" rx="1.6" transform="rotate(26 23.5 14.5)"/>
+                <path class="probe-boom" d="M5 4L20 -6" fill="none" stroke-width="1.2" stroke-linecap="round"/>
+                <rect class="probe-scan" x="17.5" y="-11.5" width="6" height="6" rx="1.2"/>
+                <rect class="probe-bus" x="-7" y="2" width="14" height="8" rx="2"/>
+                <path class="probe-dish probe-dish--back" d="M-15 -3C-11 6 11 6 15 -3Z"/>
+                <ellipse class="probe-dish" cx="0" cy="-3" rx="15" ry="5"/>
+                <path class="probe-boom" d="M0 -3V-13" fill="none" stroke-width="1.2" stroke-linecap="round"/>
+                <circle class="probe-feed" cx="0" cy="-14" r="1.8"/>
               </g>
             </symbol>
           </defs>
