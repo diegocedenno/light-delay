@@ -82,15 +82,14 @@
   /* ---------- reloj ---------- */
 
   // performance.now() da pasos suaves por debajo del milisegundo, pero puede
-  // detenerse si el equipo se suspende; al volver se reancla con el reloj de pared.
+  // detenerse si el equipo se suspende; si se separa del reloj de pared, se reancla.
   var anchor = { wall: Date.now(), perf: performance.now() };
 
   function now() {
+    if (Math.abs(Date.now() - anchor.wall - (performance.now() - anchor.perf)) > 250) {
+      anchor = { wall: Date.now(), perf: performance.now() };
+    }
     return anchor.wall + (performance.now() - anchor.perf);
-  }
-
-  function reanchor() {
-    if (Math.abs(Date.now() - now()) > 250) anchor = { wall: Date.now(), perf: performance.now() };
   }
 
   function signalTime() {
@@ -367,7 +366,6 @@
 
   document.addEventListener("visibilitychange", function () {
     stopLoop();
-    if (!document.hidden) reanchor();
     if (flying()) tick();
   });
 
